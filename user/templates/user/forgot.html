@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pl">
+    <head>
+        <meta charset="UTF-8">
+        <title>{{ title }}</title>
+        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        {% load staticfiles %}
+        <link rel="icon" href="{% static 'img/favicon.png' %}" type="image/png">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/materialize.min.css' %}" media="screen,projection">
+        <script type="text/javascript" src="{% static 'js/jquery-2.1.1.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/materialize.min.js' %}"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
+
+        <!-- Wyrównanie ikon z tekstem -->
+        <style>
+        .main_row i {vertical-align: middle !important;}
+        </style>
+
+    </head>
+
+<body>
+
+    <div class="row main_row">
+    <div class="col s1 m3 l4"></div>
+
+    <div class="col s10 m6 l4">
+        <div class="row center">
+            <i class="material-icons" style="font-size:10em;">mail_outline</i>
+            <p>
+                Wpisz email powiązany z twoim kontem, a wyślemy ci link pozwalający zresetować hasło.
+            </p>
+            <p>
+                <a href="{% url 'Login' %}">Powrót do logowania</a>
+            </p>
+        </div>
+        <form action="" method="post" name="forgotpass" autocomplete="off">
+            {% csrf_token %}
+            <input type="email" placeholder="E-mail" name="reset_mail" value="" required/>
+
+            <a class="waves-effect waves-teal btn blue darken-3" onclick="document.forms['forgotpass'].submit();">Prześlij</a>
+
+        </form>
+    </div>
+
+    <div class="col s1 m3 l4"></div>
+    </div>
+
+</body>
+
+</html>

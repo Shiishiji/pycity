@@ -1,0 +1,120 @@
+{% extends 'tutorials/headers/header.html' %}
+{% block content %}
+{% load staticfiles %}
+<style>
+.profile-row {
+    background-color: #f9f9f9;
+    vertical-align: middle !important;
+}
+.profile-main-col {
+    margin-top: 15px;
+}
+.avatar img{
+    height: 200px;width: 200px;
+}
+
+.b {
+    font-weight: 600;
+    padding-left: 15px;
+}
+
+.mini-menu i {
+    vertical-align: middle !important;
+}
+@media screen and (max-width: 600px){
+	.profile-table {
+		font-size: 11px;
+	}
+}
+</style>
+
+<div class="row profile-row">
+    <div class="col s0 m0 l1 side"></div>
+    <!-- Main -->
+    <div class="col s12 m12 l10 profile-main-col">
+        <div class="row">
+
+            <!-- Avatar -->
+            <div class="col s12 m5 l3 center">
+                {% include 'pybb/avatar.html' with user=user %}
+            </div>
+
+
+            <!-- Table -->
+            <div class="col s12 m7 l9 card">
+                <table class="bordered profile-table">
+                    <thead>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td class="b">Nazwa użytkownika</td>
+                            <td colspan="2">{{ user.username }}</td>
+                        </tr>
+
+                        <tr>
+                            <td class="b">E-mail</td>
+                            <td>{{ user.email }}</td>
+                            <td><a href="{% url 'PyCitySettings' %}">Zmień</a></td>
+                        </tr>
+
+                        <tr>
+                            <td class="b">Dołączył</td>
+                            <td colspan="2">{{ user.date_joined|date:"Y-m-d" }}</td>
+                        </tr>
+
+                        <tr>
+                            <td class="b">Ostatnie logowanie</td>
+                            <td>{{ user.last_login|date:"Y-m-d G:i:s" }}</td>
+                            <td><a href="{% url 'PyCitySettings' %}">Zabezpiecz konto</a></td>
+                        </tr>
+
+                        <tr>
+                            <td class="b">Status</td>
+                            <td colspan="2">
+                                {% if user.is_staff == True %}
+                                <div class="chip moderator">
+                                    <img src="{% static 'img/moderator.jpg' %}">
+                                    Moderator&nbsp;&nbsp;
+                                </div>&nbsp;
+                                {% endif %}
+
+                                {% if user.is_superuser == True %}
+                                <div class="chip supermoderator">
+                                    <img src="{% static 'img/superadmin.jpg' %}">
+                                    Supermoderator&nbsp;&nbsp;
+                                </div>&nbsp;
+                                {% endif %}
+
+                                {% if user.is_superuser == False and  user.is_staff == False %}
+                                <div class="chip supermoderator">
+                                    <img src="{% static 'img/user.jpg' %}">
+                                    Użytkownik&nbsp;&nbsp;
+                                </div>&nbsp;
+                                {% endif %}
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="col s12 m12 l12 card" style="margin-top:30px;">
+                <h5 class="center">Miejsce na statystyki</h5>
+            </div>
+
+        </div>
+
+
+        <!-- Username:{{ user.username }}<br />
+        Banned:{{ user.profile.banned }}<br /> -->
+    </div>
+    <div class="col s0 m0 l1 side"></div>
+    <div class="col s0 m0 l1 side"></div>
+</div>
+<script>
+    $(document).ready(function(){
+         $('.chips').material_chip();
+    });
+</script>
+
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends 'pybb/base.html' %}
+{% load pybb_tags i18n %}
+
+{% block title %}{{ forum.name }} - {% trans 'Subscription' %}{% endblock title %}
+
+{% block breadcrumb %}
+    {% with forum as object %}
+        {% include "pybb/breadcrumb.html" %}
+    {% endwith %}
+{% endblock %}
+
+{% block content %}
+<div class="row">
+<div class="col s0 m1 l1"></div>
+    <div class="col s12 m10 l10 card">
+        <div class="forum_subscription center">
+            <h4>{{ forum.name }} - Subskrypcje</h4>
+            <form class="forum_subscription" action="" method="POST" name="subscri_form">
+                {% csrf_token %}
+                {% include "pybb/form_errors.html" %}
+
+                <div class="row">
+                    {% with form.type as field %}
+                        <div id="pybb_subscription_type">
+                            {% include 'pybb/_select_radio.html' with field=field %}
+                        </div>
+                    {% endwith %}
+
+                    {% with form.topics as field %}
+                        <div id="pybb_concerned_topics">
+                            {% include 'pybb/_select_radio.html' with field=field %}
+                        </div>
+                    {% endwith %}
+                </div>
+
+
+
+
+                {% for hidden_field in form.hidden_fields %}
+                    {{ hidden_field }}
+                {% endfor %}
+                <div class="row">
+                    <a class="btn btn-link blue darken-4" href="{{ forum.get_absolute_url }}">Wstecz</a>
+                    <input type="submit" class="btn btn-primary blue darken-4" value="Zatwierdź" />
+                </div>
+            </form>
+        </div>
+    </div>
+<div class="col s0 m1 l1"></div>
+</div>
+    <script>
+    /*Błąd w materialize.min.css powoduje ustawienie input radio nad */
+    // left: -9999px
+    // opacity: 0
+    // position absolute
+    // Przez co wychodzą one poza stronę
+        var fix = function(){
+            var d = document.forms['subscri_form'];
+            for(var i=0;i<d.length;i++){
+                if( d[i].type == 'radio' ){
+                    d[i].style.left = "0px";
+                    d[i].style.position="static"
+                    d[i].style.opacity="1";
+            }}}
+
+        $(document).ready(function(){
+            setTimeout(function(){fix();},250);
+        });
+    </script>
+{% endblock content %}

@@ -1,0 +1,49 @@
+{% extends 'tutorials/headers/header.html' %}
+{% block content %}
+    <div class="row">
+
+    </div>
+    <div class="row">
+
+    </div>
+    <div class="row">
+    <style>
+        .card.white {
+            border-radius: 5px;
+            border: 1px dashed #263238;
+            padding: 20px !important;
+
+        }
+        body {
+            background: #bdbdbd;
+        }
+        a {
+            max-width: 100%;
+        }
+        #opis {
+            margin: 0.5em;
+        }
+		.fleksik {
+			display: inline-block;
+			max-width: 40%;
+			margin-left:2%;
+		}
+    </style>
+    {% include 'tutorials/Tags/_green-button.html' %}
+        <div class="col s12 m9 offset-m2">
+            {% for kategoria in kategorie %}
+            <div class="fleksik">
+                <div class="card white">
+                    <div class="card-content">
+                        <span class="card-title truncate">{{ kategoria.nazwa }}</span>
+                        <p id="opis"> {{ kategoria.opis }} </p>
+                    </div>
+                    <div class="card-action right-align">
+                        <a href="{% url 'tuts' kategoria.pk %}" class="btn-flat white-text truncate">Rozpocznij nauke</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

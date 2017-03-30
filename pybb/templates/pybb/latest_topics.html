@@ -1,0 +1,40 @@
+{% extends 'pybb/base.html' %}
+
+{% load pybb_tags i18n %}
+
+{% block title %}{% trans "Last updates in topics" %}{% endblock title %}
+
+{% block breadcrumb %}
+    {% with extra_crumb=_("Last updates in topics") %}
+        {% include "pybb/breadcrumb.html" %}
+    {% endwith %}
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="forum col s12 m12 l10 offset-l1">
+        <h1 style="text-align:center;">Najnowsze posty w tematach</h1>
+        {% if forum.headline %}
+            <div class="forum-headline alert alert-block">
+                {{ forum.headline|safe }}
+            </div>
+        {% endif %}
+
+        {% include "pybb/pagination.html" %}
+
+        {% include "pybb/topic_list.html" %}
+
+        {% include "pybb/pagination.html" %}
+
+        {% if user.is_authenticated %}
+            <div id='mark-all-as-read' style="margin-top:20px;">
+                <a href='{% url 'pybb:mark_all_as_read' %}'>
+                    <i class="material-icons">done</i>&nbsp;
+                    Oznacz wszystkie jako przeczytane
+                </a>
+            </div>
+        {% endif %}
+    </div>
+
+</div>
+{% endblock content %}

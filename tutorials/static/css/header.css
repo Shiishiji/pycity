@@ -1,0 +1,24 @@
+header {
+    margin: 0 !important;
+}
+header img {
+    width: auto;
+    max-height: 60px;
+    padding: 5px;
+}
+header#2 {
+    max-height: 40px !important;
+}
+header nav span:hover {
+    background-color: #37474f;
+    cursor: pointer;
+}
+main div {
+    padding: 0 !important;
+}
+
+@media screen and (max-width: 480px) {
+    b.valign.txt {
+        display: none;
+    }
+}

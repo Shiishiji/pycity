@@ -1,0 +1,78 @@
+{% extends 'pybb/base.html' %}
+
+{% load i18n pybb_tags %}
+
+{% block title %}{% trans "Profile editing" %}{% endblock title %}
+
+{% block content %}
+<style>
+.main-row textarea{
+    resize: none;
+    height:200px;
+    width:80%;
+}
+/*.editing input[type="submit"]{
+    float:right;
+}*/
+.editing, .subscriptions {
+    padding:17px 0px;
+}
+#id_avatar{
+    border: 0px solid black;
+}
+</style>
+
+<div class="row main-row">
+<div class="col s0 m1 l1"></div>
+
+    <div class="col s12 m10 l10 center" style="margin-top:30px;">
+
+    <div class="editing card">
+        <h4 id="editpf">Edytuj swój profil</h4>
+        <form method="post" enctype="multipart/form-data" class="profile-edit">
+            {% csrf_token %}
+
+
+                {% include "pybb/form.html" %}
+                <hr />
+                Podgląd avatara
+                {% include 'pybb/avatar.html' with user=user %}
+                <hr />
+                <br />
+                {% include "pybb/_button_save.html" %}
+
+
+        </form>
+    </div>
+
+    <div class="subscriptions card" style="margin-top:100px;">
+
+        <h4 id="subscriprionsf">Twoje Subskrypcje</h4>
+        <hr />
+        <ul>
+            {% for sub in user.subscriptions.all %}
+                <li>
+                    {% pybb_link sub %}
+                    &mdash;
+                    <strong>
+                        <a href="{% url 'pybb:delete_subscription' sub.id %}">{% trans "delete" %}</a>
+                    </strong>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    </div>
+<div class="col s0 m1 l1"></div>
+</div>
+<script>
+    var layoutTriggger = function(){
+        var textarea_ = document.getElementById('id_signature');
+        textarea_.placeholder = "Tutaj jest miejsce na opis twojego profilu. ( max 1024 znaki )";
+    }
+
+    $(document).ready(function(){
+        layoutTriggger();
+    });
+</script>
+{% endblock content %}

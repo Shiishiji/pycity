@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html lang="pl">
+    <head>
+        <meta charset="UTF-8">
+        <title>{{ title }}</title>
+        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        {% load staticfiles %}
+        <link rel="icon" href="{% static 'img/favicon.png' %}" type="image/png">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/materialize.min.css' %}" media="screen,projection">
+        <script type="text/javascript" src="{% static 'js/jquery-2.1.1.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/materialize.min.js' %}"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
+        <!-- Wyrównanie ikon z tekstem -->
+        <style>
+        .main_row i {vertical-align: middle !important;}
+        .main_row a {
+            color: #1565c0;
+            padding:5px 10px;
+        }
+        .main_row li {
+            margin-top: 5px;
+        }
+        .main_row a:hover {
+            color:white;
+            background-color: #1565c0;
+        }
+        #freq {
+            color: #c62828;
+        }
+        #freq:hover {
+            color: white;
+            background-color: #c62828;
+        }
+        </style>
+</head>
+
+
+<body>
+
+    <div class="row main_row">
+        <div class="col s1 m3 l3"></div>
+
+        <div class="col s10 m6 l6">
+            <div class="row center">
+                <i class="material-icons" style="font-size:10em;">message</i>
+                <p>{{ msg }}</p>
+            </div>
+
+            <ul>
+                <li><a id="freq" href="{% url 'Forgot' %}">- Zapomniałem hasła</a></li>
+                <li><a href="{% url 'home' %}">- Strona główna</a></li>
+                <li><a href="{% url 'Login' %}">- Logowanie</a></li>
+            </ul>
+        </div>
+
+
+        <div class="col s1 m3 l3"></div>
+    </div>
+</body>
+
+</html>

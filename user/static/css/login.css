@@ -1,0 +1,63 @@
+body{
+    background-color: #f9f9f9;
+}
+.input-field label {
+    color: #000;
+}
+/* label focus color */
+.input-field input[type=text]:focus{
+    color: #000;
+}
+.input-field input[type=password]:focus{
+    color: #000;
+}
+/* label underline focus color */
+.input-field input[type=text]:focus {
+    border-bottom: 1px solid #1565c0;
+    box-shadow: 0 1px 0 0 #1565c0;
+}
+.input-field input[type=password]:focus {
+    border-bottom: 1px solid #1565c0;
+    box-shadow: 0 1px 0 0 #1565c0;
+}
+/* valid color */
+.input-field input[type=password].valid {
+    border-bottom: 1px solid #1565c0;
+    box-shadow: 0 1px 0 0 #1565c0;
+}
+
+#id_email:focus {
+    border-bottom: 1px solid #1565c0;
+    box-shadow: 0 1px 0 0 #1565c0;
+}
+/* valid color */
+#id_email.valid {
+    border-bottom: 1px solid #1565c0;
+    box-shadow: 0 1px 0 0 #1565c0;
+}
+
+/* icon prefix focus color */
+.input-field .prefix.active {
+    color: #1565c0;
+}
+.login_main,.registration_callout {
+    border:1px solid #d8dee2;
+    border-radius: 5px;
+    padding:20px;
+}
+.registration_callout {
+    padding:15px 5px;
+}
+.registration_callout p {
+    margin:0;
+}
+.main_row h4{
+    font-size: 24px;
+    font-weight: 300;
+}
+.main_row > div {
+    margin-top: 50px;
+}
+.errormsg {
+    color: #e53935;
+}

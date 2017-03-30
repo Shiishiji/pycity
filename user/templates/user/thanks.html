@@ -1,0 +1,68 @@
+<html lang="pl">
+    <head>
+        <meta charset="UTF-8">
+        <title>Dziękujemy!</title>
+        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        {% load staticfiles %}
+        <link rel="icon" href="{% static 'img/favicon.png' %}" type="image/png">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/materialize.min.css' %}" media="screen,projection">
+        <script type="text/javascript" src="{% static 'js/jquery-2.1.1.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/materialize.min.js' %}"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+        <style>
+            body{
+                background-color: #f9f9f9;
+            }
+        </style>
+
+        <script>
+            function resend(element){
+                element.style.display = "none";
+                Materialize.toast('Wysyłam. Proszę czekać...', 4000);
+                setTimeout(function(){ window.location = "./resend-activation-mail/{{ context }}"; },2000);
+            }
+        </script>
+
+    </head>
+
+    <body>
+        <div class="row" style="margin-top:50px;">
+            <div class="col s1 m3 l2"></div>
+
+                <div class="col s10 m6 l8">
+
+                    <div class="row center">
+                        <i class="material-icons" style="font-size:15em;">insert_emoticon</i>
+                    </div>
+
+                    <div style="text-align:center;">
+
+                        <h3>Dziękujemy za twoją rejestrację!</h3>
+
+                        <p>
+                            Mamy nadzieję, że nasza strona skutecznie pomoże ci nauczyć się Python'a, jego bibliotek oraz frameworku Django.
+                        </p>
+
+                        <p>
+                            Za chwilę otrzymasz na swoją skrzynkę pocztową wiadomość z linkiem aktywacyjnym.
+                        </p>
+
+                        <p>
+                            Jeśli wiadomość nie przyjdzie po 5 minutach kliknij <a href="#!" onclick="resend(this)">tutaj</a> aby wysłać ją ponownie.
+                        </p>
+
+
+                        <p>
+                            <a href="../../">Kliknij tutaj aby powrócić na stronę główną</a>
+                        </p>
+
+
+                    </div>
+
+                </div>
+
+            <div class="col s1 m3 l2"></div>
+        </div>
+    </body>
+</html>

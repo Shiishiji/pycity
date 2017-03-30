@@ -1,0 +1,59 @@
+{% load i18n pybb_tags staticfiles %}
+<form class="post-form" action="
+    {% if forum %}
+        {% url 'pybb:add_topic' forum.pk %}
+    {% else %}
+        {% if topic %}
+            {% url 'pybb:add_post' topic.pk %}
+        {% else %}
+            {% url 'pybb:edit_post' pk=object.pk %}
+        {% endif %}
+    {% endif %}" method="post" enctype="multipart/form-data">
+
+  {% csrf_token %}
+  <fieldset>
+    {% include "pybb/form_errors.html" %}
+
+    {% if form.name %}<p>Temat</p> {% include "pybb/form_field.html" with field=form.name %} {% endif %}
+
+    {% if form.slug %} {% include "pybb/form_field.html" with field=form.slug %} {% endif %}
+    {% if form.body %}<p>Wiadomość</p> {% include "pybb/form_field.html" with field=form.body %}  {% endif %}
+
+      <div id='emoticons'>
+    {% for smile, url in form.available_smiles.items %}
+        {% with form.smiles_prefix|add:url as static_smiley %}
+            <a onclick="insertEmoji(this)" style='cursor:pointer;' title='{{ smile|safe }}'><img src='{% static static_smiley %}'></a>
+        {% endwith %}
+    {% endfor %}
+    </div>
+
+    {% if request.user|pybb_may_create_poll and form.poll_type %}
+      {% include "pybb/poll_edit_form.html" %}
+    {% endif %}
+
+    {% include "pybb/attachments_formset.html" %}
+    <p class="submit">{% include "pybb/_button_submit.html" %}</p>
+  </fieldset>
+</form>
+
+<script>
+    function insertEmoji(element) {
+        var emoji = element.title;
+        var text_field = document.getElementById('id_body');
+        //console.log( emoji + ' ' + element.firstChild.src );
+        if( text_field.type == 'textarea' ){text_field.value += " " + emoji + " ";}
+    }
+    function pollFix(){
+        var pollarea = document.getElementById('id_poll_question');
+        pollarea.value = "None";
+        pollarea.style.display = "none";
+    }
+    $(document).ready(function(){
+
+        setTimeout(function(){
+            pollFix();
+        },200);
+
+    });
+
+</script>

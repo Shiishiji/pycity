@@ -1,0 +1,8 @@
+﻿
+# Tworzenie domen.
+# UNIQUE
+from django.contrib.sites.models import Site
+Site.objects.create(name='ooo.com', domain='ooo.com')
+
+Site.objects.get(pk=2)
+SITE_ID = 2

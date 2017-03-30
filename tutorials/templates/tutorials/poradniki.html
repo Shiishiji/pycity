@@ -1,0 +1,48 @@
+{% extends 'tutorials/headers/header.html' %}
+{% block content %}
+{% include 'tutorials/Tags/_green-button.html' %}
+    <style>
+        div.card {
+            padding: 20px !important;
+        }
+        body {
+            background: #bdbdbd;
+        }
+    </style>
+    <div class="row">
+
+    </div>
+    <div class="row">
+
+    </div>
+    <div class="col s12 l8 offset-l2">
+    <div class="card">
+        <table class="highlight">
+            <thead>
+                <tr>
+                    <th>Poradnik</th>
+                    <th>Opis Poradnika</th>
+                    <th>Wersja</th>
+                    <th> </th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for poradnik in tuts %}
+                <tr>
+                    <td>{{ poradnik.tytul }}</td>
+                    <td>{{ poradnik.opis }}</td>
+                    {% if poradnik.version in "PP" %}
+                        <td>Python 2 i 3</td>
+                    {% elif poradnik.version in "P2" %}
+                        <td>Python 2</td>
+                    {% else %}
+                        <td>Python 3</td>
+                    {% endif %}
+                    <td><a class="btn-flat truncate" href="{{ poradnik.pk }}">Ucz się!</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    </div>
+{% endblock %}

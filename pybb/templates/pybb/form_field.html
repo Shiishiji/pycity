@@ -1,0 +1,23 @@
+{% load pybb_tags %}
+
+<div class="{% if field.is_required %}required{% endif %} {% if field.errors %}error{% endif %}">
+    {% if not hide_labels or hide_labels == 0 %}
+
+        {% if field.auto_id == 'id_avatar' %}
+            <p class="center">
+                <h5>Wybierz swój avatar.</h5><br />Najlepiej wybierz obraz który będzie miał <b>taką samą</b> lub <b>zbliżoną</b> szerokość i wysokość.<br />
+                <br />
+                <i class="material-icons" style="vertical-align: middle !important;">warning</i>Zmiana avatara w panelu bocznym nastąpi z lekkim opóźnieniem.
+            </p>
+        {% endif %}
+        <!-- <label for="{{ field.auto_id }}">
+            {{ field.field.label }}
+        </label> -->
+    {% endif %}
+    <div class="form-control">
+        {{ field }}
+        {% for error in field.errors %}
+            <span class="field-errors">{{ field.errors }}</span>
+        {% endfor %}
+    </div>
+</div>

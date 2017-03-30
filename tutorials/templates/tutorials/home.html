@@ -1,0 +1,104 @@
+{% extends 'tutorials/headers/header.html' %}
+    {% block content %}
+        <div class="carousel carousel-slider center" data-indicators="true">
+            <div class="carousel-fixed-item center">
+                <a class="btn waves-effect white grey-text darken-text-2" href="{% url 'kats' %}">Rozpocznij naukę!</a>
+            </div>
+            {% load staticfiles %}
+            <style>
+                h4 {
+                    margin: 0;
+                }
+                div.karuzela {
+                    width: 100%; height: 100%; background-size: 100% 100%;
+                }
+                div#c1{ background-image: url({% static 'img/asia/c1.jpg' %}); }
+                div#c2{ background-image: url({% static 'img/asia/c2.jpg' %}); }
+                div#c3{ background-image: url({% static 'img/asia/c3.jpg' %}); }
+                div#c4{ background-image: url({% static 'img/asia/c4.jpg' %}); }
+                .karuzela.contain {
+                    position: relative;
+                }
+                .topright {
+                    position: absolute;
+                    top: 8px;
+                    right: 16px;
+                }
+                .centered {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                }
+                .topleft {
+                    position: absolute;
+                    top: 8px;
+                    left: 16px;
+                }
+                .bottomright {
+                    position: absolute;
+                    bottom: 35%;
+                    right: 16px;
+                    max-width: 75%;
+                }
+                @font-face {
+                    font-family: 'head'; /*a name to be used later*/
+                    src: url('{% static 'fonts/century-gothic/century-gothic-b.ttf' %}'); /*URL to font*/
+                }
+                @font-face {
+                    font-family: 'par'; /*a name to be used later*/
+                    src: url('{% static 'fonts/century-gothic/century-gothic.ttf' %}'); /*URL to font*/
+                }
+
+                .h {
+                    font-family: 'head';
+                    font-size: 4em;
+                }
+                .p {
+                    font-family: 'par';
+                    font-size: 2em;
+                    font-style: italic;
+                    max-height: 60%;
+                }
+            </style>
+            <div class="carousel-item" href="#one!">
+                <div class="karuzela contain white-text" id="c1">
+                    <h4 class="h topleft" style="top: 10%; left: 5%">Tworzenie sieci</h4>
+                    <h4 class="p bottomright right-align">W języku python tworzone są skrypty stron internetowych po stronie serwera!</h4>
+                </div>
+            </div>
+            <div class="carousel-item" href="#two!">
+                <div class="karuzela contain" id="c2">
+                    <h4 class="h topleft" style="top: 15%; left: 60%; ">Język wysokiego poziomu</h4>
+                    <h4 class="p bottomright right-align">Python jest językiem wysokiego poziomu, dzięki czemu jego kod jest czytelny nawet dla mniej wprawionych oczu.</h4>
+                </div>
+            </div>
+            <div class="carousel-item" href="#three!">
+                <div class="karuzela contain" id="c3">
+                    <h4 class="h topleft" style="left: 5%; top: 10%;">Ogromna społeczność</h4>
+                    <h4 class="p bottomright right-align">Duża ilość programistów chętnych do pomocy przy nauce :)</h4>
+                </div>
+            </div>
+            <div class="carousel-item" href="#four!">
+                <div class="karuzela contain white-text" id="c4">
+                    <h4 class="h topleft">Moduły i PIP</h4>
+                    <h4 class="p bottomright right-align">Python oferuje oferuje mnóstwo wbudowanych narzędzi takich jak PIP ułatwiających prace programistom.</h4>
+                </div>
+            </div>
+            <!-- gdyby była potrzebna stara karuzela -->
+            {# include 'tutorials/snippets/_stara-karuzela.html' #}
+        </div>
+        <!-- <div class="parallax-container">
+            {% load staticfiles %}
+            <div class="parallax"><img src="{#  static 'img/thumb-1920-511052.jpg'  #}"></div>
+        </div> -->
+        <div class="section white">
+            <div class="row container">
+                <h2 class="header">Ucz się z PyCity!</h2>
+                <p class="grey-text text-darken-3 lighten-3">Rozpocznij darmową nauke z PyCity już dziś! Oferujemy mnóstwo darmowych kursów które z pewnością pomogą Ci w rozpoczęciu twojej przygody z pythonem!</p>
+            </div>
+        </div>
+        <div class="parallax-container">
+            <div class="parallax"><img src="{% static 'img/python-programming-tutorials-main.png' %}"></div>
+        </div>
+    {% endblock %}

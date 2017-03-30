@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head lang="pl">
+    <meta charset="UTF-8">
+    <meta name="keywords" content="Python, django, poradnik, darmowy poradnik">
+
+    <title>{{ title }}</title>
+
+    <!--Import Google Icon Font-->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    {% load staticfiles %}
+    <link rel="icon" href="{% static 'img/favicon.png' %}" type="image/png"> <!-- favicon -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/materialize.min.css' %}" media="screen,projection">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/header.css' %}">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+<body>
+    <!--Import jQuery before materialize.js-->
+        {% load staticfiles %}
+        <script type="text/javascript" src="{% static 'js/jquery-2.1.1.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/materialize.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/header.js' %}"></script>
+
+    {% include 'tutorials/snippets/sidenav.html' %}
+
+    <header class="row blue darken-3 white-text valign-wrapper">
+        <div class="col s2 m2 l2">
+            {% if idict.is_logged %}
+            <a href="#" data-activates="slide-out" class="button-collapse">
+                <span class="small material-icons white-text flow-text valign">reorder</span><span><b class="valign txt">{{ idict.user.username }}</b></span>
+            </a>
+            {% else %}
+            <a href="{% url 'Login' %}" class="valign-wrapper"><span class="material-icons valign">perm_identity</span><b class="valign txt">Zaloguj się!</b></a>
+            {% endif %}
+        </div>
+        <div class="col s10 m8 l6 offset-m3 offset-l6 valign-wrapper">
+            <span class="flow-text valign">PyCity - Naucz się pythona!</span>
+            <span><img src="{% static 'img/djangopony.png' %}"> </span>
+            <span><img src="{% static 'img/python-HE.png' %}"> </span>
+        </div>
+    </header>
+    <header class="row blue-grey darken-4" id="2">
+        <nav class="col s12 m8 l8 offset-m2 offset-l2 blue-grey darken-4 white-text ">
+            <a href="{% url 'home' %}"><span class="col s4 center-align truncate">Strona główna</span></a>
+            <a href="{% url 'kats' %}"><span class="col s4 center-align">Poradniki</span></a>
+            <a href="{% url 'pybb:index' %}"><span class="col s4 center-align">Forum</span></a>
+        </nav>
+    </header>
+    <main class="row">
+        <div class="col s12 m12 l12">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </main>
+
+</body>
+</html>

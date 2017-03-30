@@ -1,0 +1,43 @@
+{% extends 'pybb/base.html' %}
+{% load i18n pybb_tags staticfiles %}
+
+{% block title %}
+{% if forum %}{% trans "New topic" %}{% else %}{% trans "New reply" %}{% endif %}
+{% endblock %}
+
+{% block extra_head %}
+    {{ block.super }}
+    {{ form.media.css }}
+{% endblock %}
+{% block extra_script %}
+    {{ block.super }}
+    {{ form.media.js }}
+    <script type="text/javascript" src="{% static 'pybb/js/jquery.formset.min.js' %}"></script>
+{% endblock %}
+
+{% block breadcrumb %}
+    {% if forum %}
+        {% with object=forum extra_crumb="New topic" %}
+            {% include 'pybb/breadcrumb.html' %}
+        {% endwith %}
+    {% else %}
+        {% with object=topic extra_crumb="New reply" %}
+            {% include 'pybb/breadcrumb.html' %}
+        {% endwith %}
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="row">
+        <div class="col s12 m10 l10 offset-l1 offset-m1 card">
+            <p>
+                <a href="../../">←&nbsp;Wstecz</a>
+            </p>
+            <h3>{% if forum %}{% trans "New topic" %}{% else %}{% trans "New reply" %}{% endif %}</h3>
+
+            {% include "pybb/post_form.html" %}
+        </div>
+</div>
+
+
+{% endblock content %}

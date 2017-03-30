@@ -1,0 +1,37 @@
+<html lang="pl">
+    <head>
+        <meta charset="UTF-8">
+        <title>PyCity</title>
+        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        {% load staticfiles %}
+        <link rel="icon" href="{% static 'img/favicon.png' %}" type="image/png">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/materialize.min.css' %}" media="screen,projection">
+        <script type="text/javascript" src="{% static 'js/materialize.min.js' %}"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+        <style>
+            body{
+                background-color: #f9f9f9;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="row" style="margin-top:50px;">
+            <div class="col s1 m1 l4"></div>
+                <div class="col s10 m10 l4">
+
+                    <div class="row center">
+                        <a href="../login"><img style="width:200px;height:auto;" src="{% static 'img/djangopony.png' %}"></a>
+                    </div>
+                    <div style="text-align:center;">
+                        <h4 style="text-align:center;">Twoje konto jest aktywne!</h4>
+                        <p>
+                            Kliknij w kucyka aby przejść do strony logowania.
+                        </p>
+                    </div>
+                </div>
+            <div class="col s1 m1 l4"></div>
+        </div>
+    </body>
+</html>

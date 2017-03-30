@@ -1,0 +1,21 @@
+    <ul id="slide-out" class="side-nav">
+        <li>
+            <div class="userView white-text">
+                <div class="background">
+                    {% load staticfiles %}
+                    <img src="{% static 'img/side-nav-bckg-forum.jpg' %}">
+                </div>
+                {% include 'pybb/avatar.html' with user=user %}
+                <a href="{% url 'Profile' %}"><span class="name white-text">{{ idict.user.username }}</span></a>
+                <a href="{% url 'Profile' %}"><span class="email white-text">{{ idict.user.email }}</span></a>
+            </div>
+        </li>
+        <li><div class="divider"></div></li>
+        <li><a href="{% url 'home' %}"><i class="material-icons">home</i>PyCity - Strona główna</a></li>
+        <li><a href="/forum"><i class="material-icons">forum</i>PyCity - Forum</a></li>
+        <li><div class="divider"></div></li>
+        <li><a href="{% url 'Profile' %}"><i class="material-icons">contacts</i>Mój profil</a></li>
+        <li><a href="{% url 'PyCitySettings' %}"><i class="material-icons">settings</i>Ustawienia konta</a></li>
+        <li><div class="divider"></div></li>
+        <li><a class="gray-text waves-effect" href="{% url 'Logout' %}"><i class="material-icons">settings_power</i>Wyloguj</a></li>
+    </ul>

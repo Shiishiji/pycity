@@ -1,0 +1,98 @@
+<!-- Layout -->
+<html>
+
+<head lang="pl">
+    <meta charset="UTF-8">
+    <meta name="keywords" content="Python, django, poradnik, darmowy poradnik">
+    <title>{% block title %}{% endblock %}</title>
+    <!--Import Google Icon Font-->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    {% load staticfiles %}
+    <link rel="icon" href="{% static 'img/favicon.png' %}" type="image/png"> <!-- favicon -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/materialize.min.css' %}" media="screen,projection">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/header.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'pybb/css/pybbForum.css' %}">
+
+
+    <!--Import jQuery before materialize.js-->
+    <script type="text/javascript" src="{% static 'js/jquery-2.1.1.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/materialize.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/header.js' %}"></script>
+</head>
+
+<body>
+
+{% include 'pybb/snippets/SideNav.html' %}
+
+
+<!--
+<header class="row">
+<!-- Nav --> <!--
+    <nav class="col s12 blue darken-3">
+        <!-- Aby side nav dzialal --> <!--
+        <a href="#" data-activates="slide-out" style="padding-right:15px;display:none;" class="button-collapse right">
+            <i class="material-icons">list</i>
+        </a>
+
+        <div class="nav-wrapper">
+            <a href="/forum" class="brand-logo"><img class="left" id="flogo" src="{% static 'img/python-HE.png' %}">PyCity - Forum</a>
+            <ul class="right">
+                <li class="hide-on-med-and-down"><a href="{% url 'home' %}"><i class="material-icons left">home</i>PyCity</a></li>
+                <li class="hide-on-med-and-down"><a href="#search"><i class="material-icons">search</i></a></li>
+                <li style="float:right;"><a onclick="sideNavShow()"><i class="material-icons">menu</i></a></li>
+            </ul>
+        </div>
+    </nav>
+</header>
+-->
+
+<header class="row blue darken-3 white-text valign-wrapper">
+    <div class="col s2 m2 l2">
+    <!-- Aby side nav dzialal -->
+        <a href="#" data-activates="slide-out" style="padding-right:15px;display:none;" class="button-collapse right">
+            <i class="material-icons">list</i>
+        </a>
+        <a style="cursor:pointer;" onclick="sideNavShow()"><i class="material-icons white-text flow-text" id="mn">menu</i></a>
+        <a href="{% url 'home' %}"><i class="material-icons white-text flow-text" id="mn">home</i></a>
+    </div>
+    <div class="col s10 m8 l4 offset-m3 offset-l7 valign-wrapper">
+        <span onclick="homeForum()" class="flow-text valign" id="heh">PyCity - forum!</span>
+        <span><img src="{% static 'img/djangopony.png' %}"> </span>
+        <span><img src="{% static 'img/python-HE.png' %}"> </span>
+    </div>
+</header>
+
+<section class="row">
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+
+</section>
+
+
+{% block breadcrumbs %}{% endblock %}
+
+
+{% block content %}{% endblock %}
+
+
+
+
+</body>
+
+
+<script>
+function sideNavShow(){
+    $('.button-collapse').sideNav('show');
+}
+function homeForum(){
+    window.location = "{% url 'pybb:index' %}";
+}
+</script>
+</html>

@@ -1,0 +1,25 @@
+
+
+<!-- Already active  -->
+{% if already_active == True %}
+    {% include 'user/includes/already_active.html' %}
+{% endif %}
+
+<!-- Expired  -->
+{% if already_active == False and activation_expired == True %}
+    {% include 'user/includes/actv_expired.html' %}
+{% endif %}
+
+
+<script>
+    (function(){ // Reload once
+        if(window.localStorage){
+            if(!localStorage.getItem('firstLoad')){
+                localStorage['firstLoad']=true;
+                window.location.reload();
+            }else{
+                localStorage.removeItem('firstLoad');
+            }
+        }
+    })();
+</script>

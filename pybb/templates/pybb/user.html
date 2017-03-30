@@ -1,0 +1,107 @@
+{% extends 'pybb/base.html' %}
+
+{% load pybb_tags i18n %}
+
+{% block title %}
+    {% pybb_get_profile target_user as target_profile %}
+    {{ target_profile.get_display_name }}
+{% endblock %}
+
+{% block content %}
+    {% pybb_get_profile target_user as target_profile %}
+
+<style>
+body { background-color: #f9f9f9; }
+.main-row i {vertical-align: middle !important;}
+.main-row a { font-size:18px; }
+
+.controls input {
+    padding:5px;
+    border:1px solid white;
+    color:#d50000;
+}
+.controls input:hover {
+    background-color: #d50000;
+    color:#fafafa;
+}
+.controls a:hover {
+    color:#64b5f6;
+}
+</style>
+<div class="row main-row">
+<div class="col s0 m1 l1"></div>
+
+    <div class="col s12 m10 l10 center" style="margin-top:30px;">
+
+        <div class="userinfo card" style="padding:17px 0px;">
+            {% include 'pybb/avatar.html' with user=target_user %}
+            <h4>{{ target_profile.get_display_name }}</h4>
+            <div><b>{% trans "Date of registration" %}:</b> {% pybb_time target_user.date_joined %}</div>
+            <div class="info">
+                <hr />
+                <div>
+                    <a href="{% url 'pybb:user_topics' target_user.get_username %}">
+                        {% trans "Number of topics" %}:
+                        {{ topic_count }}
+                    </a>
+                    &nbsp;/&nbsp;
+                    <a href="{% url 'pybb:user_posts' target_user.get_username %}">
+                        {% trans "Number of posts" %}:
+                        {{ target_profile.post_count }}
+                    </a>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+
+        <div class='controls card' style="padding:17px 0px;">
+
+            {% if request.user|pybb_may_manage_moderators %}
+            <br />
+                <a href="{% url 'pybb:edit_privileges' target_user.get_username %}">
+                    <i class="material-icons">settings</i>&nbsp;
+                        Zarządzaj przywilejami
+                </a>
+                <br />
+                <br />
+                <hr />
+            {% endif %}
+
+            {% if perms.pybb.block_users %}
+
+                {% if target_user.is_active %}
+                    <form name="blockuf" action="{% url 'pybb:block_user' target_user.get_username %}" method="post">{% csrf_token %}
+                        <br />
+                        <input type="submit" name="block_and_delete_messages" value="Zablokuj użytkownika" />
+                        <br />
+                        <br />
+                        <hr />
+                        <br />
+                        <input type="submit" name="block_and_delete_messages" value="{% trans 'Block and delete all messages' %}" />
+                    </form>
+
+                {% else %}
+
+                    <form action="{% url 'pybb:unblock_user' target_user.get_username %}" method="post">
+                        {% csrf_token %}
+                        <input type="submit" name="block_and_delete_messages" value="Odblokuj użytkownika" />
+                    </form>
+
+                {% endif %}
+            {% endif %}
+
+            {% if target_user.id == user.id %}
+                <a href="{% url 'pybb:edit_profile' %}#editpf">
+                    <i class="material-icons">settings</i>&nbsp;Ustawienia profilu
+                </a>
+                    &nbsp;/&nbsp;
+                <a href="{% url 'pybb:edit_profile' %}#subscriprionsf">
+                     <i class="material-icons">star</i>&nbsp;Moje subskrypcje
+                </a>
+            {% endif %}
+        </div>
+    </div>
+<div class="col s0 m1 l1"></div>
+</div>
+
+{% endblock %}

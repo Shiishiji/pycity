@@ -1,0 +1,39 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+	<style>
+		@import url('https://fonts.googleapis.com/css?family=Roboto');
+		*{font-family: 'Roboto', sans-serif;font-size:21px; font-weight:300;}
+		body,html{margin:0;padding:0;}
+		img{display:block;width:auto;height:100px;margin:0 auto;}
+		.msgheader{background-color:#1565C0;border-shadow:10px 10px black;}
+		p { margin:10px auto; text-align:center; margin-top:0px; padding-top:20px; }
+		.msgmain {text-align:center;}
+		div{ margin:0; }
+		#wrapper { height:100vh; width:100wh; }
+		.msgheader{ height:100px; }
+	</style>
+</head>
+    <body>
+		<div id="wrapper">
+			<div class="msgheader">
+				<img src="https://ee5817f8e2e9a2e34042-3365e7f0719651e5b8d0979bce83c558.ssl.cf5.rackcdn.com/python.png" alt="PyCity - Naucz się pythona!">
+			</div>
+			<div class="msgmain">
+			<p>Witaj {{ username }}!</p>
+			Aby aktywowa&#263; swoje konto kliknij w poni&#380;szy link:<br />
+			{{ activation_link }}<br />
+			<br />
+			Je&#347;li to nie ty rejestrowa&#322;e&#347; si&#281; na naszej stronie, prosz&#281; zignoruj t&#281; wiadomo&#347;&#263;.<br />
+			</div>
+		</div>
+        <!--
+            &#347; ś
+            &#263; ć
+            &#281; ę
+            &#261; ą
+            &#380; ż
+            &#322; ł
+        -->
+    </body>
+</html>

@@ -1,0 +1,13 @@
+{% load i18n %}
+    {% if subscription %}
+    <a href="{% url 'pybb:forum_subscription' pk=forum.id %}" class="forum-subscription btn btn-primary waves-effect waves-light blue darken-3">
+        <i class="material-icons left">notifications_none</i>
+        Powiadomienia
+    </a>
+    {% else %}
+    <a href="{% url 'pybb:forum_subscription' pk=forum.id %}" class="forum-subscription btn btn-primary waves-effect waves-light blue darken-4">
+        <i class="material-icons left">star_border</i>
+        Subskrybuj
+    </a>
+    {% endif %}
+</a>

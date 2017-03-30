@@ -1,0 +1,37 @@
+<!-- Side Nav -->
+{% load pybb_tags i18n %}
+
+<ul id="slide-out" class="side-nav">
+    <li>
+        <div class="userView">
+        <div class="background">
+            {% load staticfiles %}
+            <img src="{% static 'img/side-nav-bckg-forum.jpg' %}">
+
+        </div>
+            {% include 'pybb/avatar.html' with user=user %}
+
+            <a href="/forum/users/{{request.user}}"><span class="name white-text">{{ request.user }}</span></a>
+            {% if request.user.id != None %}
+                <a href="/forum/users/{{request.user}}"><span class="email white-text">{{ request.user.email }}</span></a>
+            {% endif %}
+
+            {% if request.user.id == None %}
+            <p class="white-text">Jesteś zalogowany jako anonimowy użytkownik.</p>
+            <p class="white-text">Zostań z nami na dłużej!</p>
+            <li><a class="red-text red-4-text" href="{% url 'Registration' %}"><i class="material-icons red-text red-4-text">group</i>Zarejestruj się</a></li>
+            <li><a class="red-text red-4-text" href="{% url 'Login' %}?next=/forum"><i class="material-icons red-text red-4-text">lock_outline</i>Zaloguj się</a></li>
+            {% endif %}
+        </div>
+
+    </li>
+    <li><div class="divider"></div></li>
+    <li><a href="{% url 'home' %}"><i class="material-icons">home</i>PyCity - Strona główna</a></li>
+    <li><a href="/forum"><i class="material-icons">forum</i>PyCity - Forum</a></li>
+    {% if request.user.id != None %}
+    <li><div class="divider"></div></li>
+    <li><a href="/forum/users/{{request.user}}"><i class="material-icons">person_outline</i>Mój profil - Forum</a></li>
+    <li><a href="/forum/profile/edit/"><i class="material-icons">settings</i>Ustawienia - Forum</a></li>
+    <li><a class="gray-text waves-effect" href="{% url 'Logout' %}"><i class="material-icons">settings_power</i>Wyloguj</a></li>
+    {% endif %}
+</ul>

@@ -1,0 +1,122 @@
+{% load i18n pybb_tags staticfiles %}
+
+{% pybb_get_profile user=post.user as post_user_profile %}
+{% pybb_get_profile user=user as user_profile %}
+
+<a name="post-{{ post.id }}"></a> {# may be remove this string? #}
+<div class="card">
+<table class="striped table table-bordered post {% if post.on_moderation %}on-moderation{% endif %}" id="post-{{ post.id }}">
+    <thead class="post-header">
+    <tr>
+    <th colspan="2">
+        <a class="permalink right" href="{{ post.get_absolute_url }}">&nbsp;#</a>
+        {% if post_user_profile.user.id == request.user.id %}
+        <span>(Ty)</span>
+        {%endif%}
+        <span class="updated right">{% pybb_time post.created %}</span>
+        {% if user|pybb_may_create_post:post.topic %}
+
+            <a class="quote" href="{% url 'pybb:add_post' topic.id %}?quote_id={{ post.id }}">Cytuj</a>
+            <!-- <a href="#" class="quote-selected-link">{% trans "quote selected" %}</a> -->
+
+        {% endif %}
+        {% if user|pybb_may_edit_post:post %}
+            <a class="edit_post" href="{% url 'pybb:edit_post' pk=post.id %}">Edytuj</a>
+        {% endif %}
+        {% if post.updated %}
+            <a class="updated-message right">Edytowany ({% pybb_time post.updated %})&emsp;</a>
+        {% endif %}
+    </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="post-row">
+        <td class="post-info" style="width:200px;border-right:1px solid grey;">
+            {% include "pybb/avatar.html" with user=post.user %}
+
+            <div class="post-author">
+                <a href="{{ post_user_profile.get_absolute_url }}">
+
+                    {% if post_user_profile.user.is_superuser == True %}
+                        <div class="user-post-name forum-superuser-username" class="post-username">{{ post_user_profile.get_display_name }}</div>
+                    {% elif  post_user_profile.user.is_superuser == False and post_user_profile.user.is_staff == True  %}
+                        <div class="user-post-name forum-moderator-username" class="post-username">{{ post_user_profile.get_display_name }}</div>
+                    {% else %}
+                        <div class="user-post-name forum-normal-username" class="post-username">{{ post_user_profile.get_display_name }}</div>
+                    {% endif %}
+
+
+                    {% if post_user_profile.user.is_superuser %}
+                        <div class="chip supermoderator">
+                            <img src="{% static 'img/superadmin.jpg' %}">
+                            Supermoderator&nbsp;&nbsp;
+                        </div>
+                    {% endif %}
+
+                    {% if post_user_profile.user.is_staff %}
+                        <div class="chip moderator">
+                            <img src="{% static 'img/moderator.jpg' %}">
+                            Moderator&nbsp;&nbsp;
+                        </div>
+                    {% endif %}
+
+
+                </a>
+            </div>
+
+            {% if user.is_superuser %}
+                <div class="post-extra-info">IP:&nbsp;{{ post.user_ip }}</div>
+            {% endif %}
+
+            <div class="post-controls">
+                {% if user|pybb_may_delete_post:post %}
+                    <div><a onclick="pybb_delete_post('{% url 'pybb:delete_post' post.id %}',
+                            'post-{{ post.id }}', '{% trans 'Delete post?' %}'); return false;"
+                       href="{% url 'pybb:delete_post' post.id %}"><i class="material-icons">delete_forever</i>{% trans "Delete" %}</a></div>
+                {% endif %}
+                
+                {% if post.on_moderation and user.is_moderator %}
+                    <div><a href="{% url 'pybb:moderate_post' pk=post.id %}">{% trans "Approve post" %}</a></div>
+                {% endif %}
+
+                {% if perms.pybb.change_post and user.is_staff %}
+                    <div><a href="{% url 'admin:pybb_post_change' post.id %}"><i class="material-icons">border_color</i>Admin</a></div>
+                {% endif %}
+
+            </div>
+        </td>
+        <td class="post-content">
+            <p style="padding:5px 0px 0px 5px;">
+                {{ post.body_html|safe }}
+            </p>
+
+            {% if not user.is_authenticated or user_profile.show_signatures %}
+                {% if post_user_profile.signature %}
+                    <p class="post-signature">
+                        {{ post_user_profile.signature_html|safe }}
+                    </p>
+                {% endif %}
+            {% endif %}
+
+            {% comment %}
+                    {% if post.attachment_cache %}
+                    {% for attach in post.attachment_cache %}
+                    <br/>
+                    {% trans "Attachment" %}: <a href="{{ attach.get_absolute_url }}">{{ attach.name }}</a> ({{ attach.size_display }})
+                    {% endfor %}
+                    {% endif %}
+            {% endcomment %}
+            <div class="post-related">
+
+
+                <div class='attachments'>
+                    {% for attachment in post.attachments.all %}
+                        <a href="{{ attachment.file.url }}"><img src="{% static 'pybb/img/attachment.png' %}"> {{ attachment.size_display }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</div>

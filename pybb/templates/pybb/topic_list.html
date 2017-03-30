@@ -1,0 +1,58 @@
+{% load i18n pybb_tags %}
+
+<table class="bordered table topic-list">
+    <thead>
+        <tr class="topic-row head-row">
+            <th class="topic-name">
+                {% trans "Topic" %}
+            </th>
+            <th class="topic-post-count">
+                {% trans "Posts" %}
+            </th>
+            <th class="topic-view-count hide-on-small-and-down">
+                {% trans "Views" %}
+            </th>
+            <th class="topic-last-post">
+                {% trans "Last post" %}
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for topic in topic_list|pybb_topic_unread:user %}
+        <tr class="topic-row {% if topic.sticky %} sticky {% endif %} {% cycle "odd" "even" %} {% if topic.on_moderation %} on-moderation {% endif %}">
+            <td class="topic-name{% if topic.unread %} topic-unread{% endif %}">
+                <div class="state-indicator"></div>
+                <a href="{{ topic.get_absolute_url }}">{{ topic.name|truncatewords:10 }}</a>
+                <a href="{{ topic.get_absolute_url }}?first-unread=1" class="first-unread-post-link" title="{% trans 'Go to first unread post' %}"></a>
+                {% if topic.sticky %} <i class="material-icons" title="Przypięty">star_border</i> {% endif %}
+                {% if topic.closed %} <i class="material-icons" title="Zamknięty">remove_circle_outline</i> {% endif %}
+                {% with topic|pybb_topic_inline_pagination as pages %}
+                    {% if pages|length > 1 %}
+                        <span class="mini-pagination">
+                            {% trans "pages" %}:
+                            {% for page in pages %}
+                                <span class="page">
+                                {% if page == "..." %}
+                                    ...
+                                {% else %}
+                                    <a href="{{ topic.get_absolute_url }}?page={{ page }}">{{ page }}</a>
+                                {% endif %}
+                                </span>
+                            {% endfor %}
+                        </span>
+                    {% endif %}
+                {% endwith %}
+            </td>
+            <td class="topic-post-count">
+                {{ topic.post_count }}
+            </td>
+            <td class="topic-view-count hide-on-small-and-down">
+                {{ topic|pybbm_calc_topic_views }}
+            </td>
+            <td class="topic-last-post">
+                {% include "pybb/topic_last_message_info.html" %}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

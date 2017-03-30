@@ -1,0 +1,15 @@
+{% load i18n pybb_tags %}
+
+<div class="row">
+    <div class="col s0 m1 l1"></div>
+
+    <div class="col s12 m10 l10 card">
+        <div class='category {{ category.name }}'>
+            {% load staticfiles %}
+            <h1>{{ category.name }} {% if category.hidden %}[{% trans "Hidden" %}]{% endif %}<img class="category-img" src="/static/pybb/img/{{ category.name }}.png" /></h1>
+            {% include 'pybb/forum_list.html' with forum_list=category.forums_accessed category=category parent_forum='' %}
+        </div>
+    </div>
+
+    <div class="col s0 m1 l1"></div>
+</div>
